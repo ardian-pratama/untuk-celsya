@@ -16,8 +16,6 @@ const agbalumo = Agbalumo({
 
 export const metadata: Metadata = {
   title: 'Untuk Celsyaa',
-  description:
-    'Website ini dibuat oleh Ardian Pratama untuk mendapatkan hati seorang cewe bernama Celsya Nalvira',
 };
 
 export default function RootLayout({
