@@ -41,13 +41,12 @@ export default function Page() {
   const [clickCount, setClickCount] = useState(0);
   const [hideButtons, setHideButtons] = useState(false);
   const [showFinalMessage, setShowFinalMessage] = useState(false);
-  const [heartLoop, setHeartLoop] = useState(0);
 
   const handleAnswer = (answer: string, optionIndex: number) => {
     if (optionIndex === 0) {
-      const userReply = { from: 'right', text: answer };
+      const userReply: ChatItem = { from: 'right', text: answer };
       const nextStep = step + 1;
-      const newChat = [...chat, userReply];
+      const newChat: ChatItem[] = [...chat, userReply];
 
       if (nextStep < questions.length) {
         newChat.push({ from: 'left', text: questions[nextStep].question });
@@ -74,7 +73,7 @@ export default function Page() {
   useEffect(() => {
     if (step >= questions.length && !showFinalMessage) {
       // Tambahkan pesan akhir
-      setChat(prevChat => [
+      setChat((prevChat): ChatItem[] => [
         ...prevChat,
         { from: 'left', text: 'yeaay akhirnya di terima celsya' },
       ]);
@@ -82,9 +81,13 @@ export default function Page() {
 
       // Mulai loop ❤️
       const interval = setInterval(() => {
-        setChat(prevChat => [...prevChat, { from: 'left', text: '❤️' }]);
-        setHeartLoop(count => count + 1);
+        setChat((prevChat): ChatItem[] => [
+          ...prevChat,
+          { from: 'left', text: '❤️' },
+        ]);
       }, 200);
+
+      return () => clearInterval(interval); // tidak dihentikan karena tidak akan terpanggil
     }
   }, [step, showFinalMessage]);
 
